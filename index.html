@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>KING LINE - تسجيل دخول</title>
+<style>
+  *{box-sizing:border-box;font-family:"Segoe UI",Tahoma,Arial,sans-serif}
+  body{margin:0;background:radial-gradient(ellipse at center,#1a0000 0%,#0d0000 60%);color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+  .card{width:390px;max-width:100%;background:linear-gradient(180deg,rgba(255,0,0,0.08),rgba(150,0,0,0.03));border-radius:18px;padding:22px;box-shadow:0 10px 30px rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.05)}
+  h1{margin:0 0 10px;text-align:center;font-size:28px;letter-spacing:1px;background:linear-gradient(90deg,#ff1a4d,#ff6666);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .subtitle{font-size:13px;text-align:center;margin-bottom:18px;opacity:0.9}
+  label{display:block;margin-bottom:6px;font-size:14px}
+  input[type="text"],input[type="password"]{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,0,0,0.08);color:#fff;font-size:15px;margin-bottom:12px}
+  .btn{display:inline-block;padding:12px 16px;border-radius:12px;border:none;cursor:pointer;font-weight:700}
+  .btn-primary{background:linear-gradient(90deg,#ff1a4d,#ff6666);color:#fff;box-shadow:0 6px 18px rgba(255,0,0,0.25)}
+  .btn-outline{background:transparent;border:1px solid rgba(255,255,255,0.15);color:#eee}
+  .row{display:flex;gap:8px}
+  .small{font-size:12px;opacity:0.9}
+  .center{display:flex;justify-content:center;align-items:center}
+  .muted{opacity:0.7;font-size:13px;text-align:center;margin-top:12px}
+  .modal-back{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;align-items:center;justify-content:center;z-index:30;padding:20px}
+  .modal{width:420px;max-width:100%;background:#1a0000;border-radius:14px;padding:18px;border:1px solid rgba(255,255,255,0.08)}
+  .platforms{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:12px}
+  .platform{padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.08);cursor:pointer;background:linear-gradient(180deg,rgba(255,0,0,0.05),rgba(150,0,0,0.05))}
+  .platform.selected{box-shadow:0 10px 30px rgba(255,0,0,0.3);border-color:rgba(255,0,0,0.5)}
+  .hidden{display:none}
+  .game{display:none;flex-direction:column;gap:14px;align-items:center}
+  .panel{width:100%;background:linear-gradient(180deg,rgba(255,0,0,0.06),rgba(100,0,0,0.03));padding:18px;border-radius:14px;border:1px solid rgba(255,255,255,0.05)}
+  .timer{display:inline-block;padding:10px 18px;border-radius:999px;background:linear-gradient(90deg,#ff0033,#ff6666);font-weight:700;letter-spacing:2px}
+  .big-number{font-size:64px;font-weight:700;text-shadow:0 6px 22px rgba(255,80,80,0.3);color:#ffe8e8}
+  .controls{display:flex;gap:12px;justify-content:center;width:100%}
+  .logo{width:72px;height:72px;border-radius:14px;background:linear-gradient(180deg,#200000,#400000);display:flex;align-items:center;justify-content:center;font-weight:800;color:#ff8080;margin-top:8px}
+  footer{margin-top:8px;text-align:center;opacity:0.85}
+  .uploads{display:flex;gap:10px;justify-content:center;margin-bottom:10px}
+  .up{width:120px;height:80px;border-radius:8px;border:1px dashed rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:12px;color:#ccc;background:rgba(255,0,0,0.05);overflow:hidden}
+  .code-box{background:rgba(0,0,0,0.4);padding:10px;border-radius:10px;text-align:center;margin-top:8px}
+  .generated-list{max-height:140px;overflow:auto;margin-top:6px;padding:6px;border-radius:8px;border:1px solid rgba(255,255,255,0.05)}
+  .copy-btn{cursor:pointer;padding:6px 10px;border-radius:8px;border:none}
+  @media(max-width:460px){.card{padding:16px}}
+
+  /* ✅ صندوق الرسائل */
+  .msg-box {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    background: rgba(255,0,0,0.1);
+    color: #ff6666;
+    font-size: 13px;
+    text-align: center;
+    display: none;
+  }
+
+  /* ✅ أنيميشن للألوان */
+  .color-animate {
+    animation: colorShift 3s infinite alternate;
+  }
+  @keyframes colorShift {
+    0% { color: #ff1a4d; text-shadow: 0 0 10px #ff1a4d; }
+    25% { color: #ff3333; text-shadow: 0 0 10px #ff3333; }
+    50% { color: #ff6666; text-shadow: 0 0 10px #ff6666; }
+    75% { color: #ff9999; text-shadow: 0 0 10px #ff9999; }
+    100% { color: #ff4d4d; text-shadow: 0 0 10px #ff4d4d; }
+  }
+</style>
+</head>
+<body>
+
+<div class="card" id="mainCard">
+  <h1>KING LINE</h1>
+  <div class="subtitle">تجربة اللعبة الأكثر إثارة وربحًا</div>
+
+  <!-- Login form -->
+  <div id="loginForm">
+    <label>الـ ID</label>
+    <input id="userId" type="text" placeholder="ادخل الـ ID" />
+
+    <label>Password</label>
+    <input id="password" type="password" placeholder="ادخل كلمة المرور أو كود التفعيل" />
+
+    <div class="row" style="margin-top:6px">
+      <button class="btn btn-primary" id="loginBtn">تسجيل دخول</button>
+      <button class="btn btn-outline" id="getCodeBtn">أخذ كود التفعيل</button>
+    </div>
+
+    <div class="muted small">لو عندك كود التفعيل ضعه في خانة Password ثم اضغط تسجيل دخول</div>
+  </div>
+
+  <!-- Game screen -->
+  <div id="gameScreen" class="game">
+    <div class="panel center" style="flex-direction:column;gap:12px">
+      <div class="timer" id="countdown">00 : 59 : 54</div>
+      <div class="big-number" id="bigNum">0.00</div>
+      <div class="controls">
+        <button class="btn btn-outline" id="helpBtn">التعليمات</button>
+        <button class="btn btn-primary" id="playBtn">ابدأ اللعب ▶</button>
+      </div>
+    </div>
+    <div class="logo">KING<br/>LINE</div>
+  </div>
+
+  <!-- ✅ صندوق الرسائل -->
+  <div id="msgBox" class="msg-box"></div>
+
+  <div class="muted small">©KING LINE 2025</div>
+</div>
+
+<!-- Modal (كود التفعيل) -->
+<div class="modal-back" id="modalBack">
+  <div class="modal">
+    <h3 style="margin-top:0;text-align:center">أخذ كود التفعيل</h3>
+    <div class="small" style="text-align:center;margin-bottom:10px">اختر المنصة</div>
+    <div class="platforms" id="platforms">
+      <div class="platform" data-name="XpariBet">XpariBet</div>
+    </div>
+    <div id="platformResult" class="small muted" style="text-align:center;display:none;margin-bottom:10px"></div>
+
+    <div id="uploadSection" class="hidden">
+      <div class="small" style="text-align:center;margin-bottom:8px">ارفع صورتين</div>
+      <div class="uploads">
+        <div class="up" id="up1">صورة 1</div>
+        <div class="up" id="up2">صورة 2</div>
+      </div>
+      <div style="display:flex;gap:8px;justify-content:center;margin-bottom:8px">
+        <input type="file" id="file1" accept="image/*" class="hidden"/>
+        <input type="file" id="file2" accept="image/*" class="hidden"/>
+        <button class="btn btn-outline" id="pick1">اختر صورة 1</button>
+        <button class="btn btn-outline" id="pick2">اختر صورة 2</button>
+      </div>
+      <div class="center"><button class="btn btn-primary" id="confirmUpload">تأكيد</button></div>
+    </div>
+
+    <div id="activationSection" class="hidden" style="margin-top:12px;text-align:center">
+      <div class="small">تم إنشاء كود التفعيل، انسخه وضعه في Password</div>
+      <div style="margin-top:10px;font-weight:700" id="activationCode">--</div>
+      <div style="margin-top:10px">
+        <button class="btn btn-primary" id="closeModal">تم النسخ / إغلاق</button>
+      </div>
+      <div class="code-box" style="margin-top:14px">
+        <div class="generated-list" id="generatedList"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* 🔥 نفس السكربت الأصلي شغال زي ما هو */
+const modalBack=document.getElementById('modalBack');
+const getCodeBtn=document.getElementById('getCodeBtn');
+const platforms=document.getElementById('platforms');
+const platformResult=document.getElementById('platformResult');
+const uploadSection=document.getElementById('uploadSection');
+const pick1=document.getElementById('pick1'),pick2=document.getElementById('pick2');
+const file1=document.getElementById('file1'),file2=document.getElementById('file2');
+const up1=document.getElementById('up1'),up2=document.getElementById('up2');
+const confirmUpload=document.getElementById('confirmUpload');
+const activationSection=document.getElementById('activationSection');
+const activationCodeEl=document.getElementById('activationCode');
+const closeModal=document.getElementById('closeModal');
+const msgBox=document.getElementById('msgBox');
+let chosenPlatform=null,activationCode=null,autoCodesInterval=null,generatedCodes=[];
+
+function showMessage(txt){
+  msgBox.textContent=txt;
+  msgBox.style.display='block';
+}
+
+getCodeBtn.onclick=()=>{modalBack.style.display='flex';platformResult.style.display='none';uploadSection.classList.add('hidden');activationSection.classList.add('hidden');chosenPlatform=null;document.querySelectorAll('.platform').forEach(p=>p.classList.remove('selected'));};
+platforms.onclick=(e)=>{const p=e.target.closest('.platform');if(!p)return;document.querySelectorAll('.platform').forEach(x=>x.classList.remove('selected'));p.classList.add('selected');chosenPlatform=p.dataset.name;platformResult.style.display='block';platformResult.textContent='جارٍ الاتصال...';setTimeout(()=>{platformResult.textContent='تم الاتصال بنجاح';uploadSection.classList.remove('hidden');},900);};
+pick1.onclick=()=>file1.click();pick2.onclick=()=>file2.click();
+file1.onchange=(e)=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{up1.style.backgroundImage=`url(${r.result})`;up1.style.backgroundSize='cover';up1.style.backgroundPosition='center';up1.textContent='';};r.readAsDataURL(f);};
+file2.onchange=(e)=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{up2.style.backgroundImage=`url(${r.result})`;up2.style.backgroundSize='cover';up2.style.backgroundPosition='center';up2.textContent='';};r.readAsDataURL(f);};
+confirmUpload.onclick=()=>{if(!file1.files[0]||!file2.files[0]){showMessage('اختر الصورتين');return;}activationCode=genActCode();activationCodeEl.textContent=activationCode;activationSection.classList.remove('hidden');if(!autoCodesInterval)startAutoCodes();};
+closeModal.onclick=async()=>{if(activationCode){try{await navigator.clipboard.writeText(activationCode);}catch{}}modalBack.style.display='none';};
+function genActCode(){let parts=[];for(let i=0;i<4;i++)parts.push(rndStr(5));return parts.join('-');}
+function rndStr(l){const c='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';let s='';for(let i=0;i<l;i++)s+=c[Math.floor(Math.random()*c.length)];return s;}
+const generatedList=document.getElementById('generatedList');
+function startAutoCodes(){pushCode();autoCodesInterval=setInterval(pushCode,13000);}
+function pushCode(){const code=shortCode();generatedCodes.unshift(code);if(generatedCodes.length>30)generatedCodes.pop();renderCodes();}
+function shortCode(){const c='ABCDEFGHJKMNPQRSTUVWXYZ23456789';let s='';for(let i=0;i<6;i++)s+=c[Math.floor(Math.random()*c.length)];return s;}
+function renderCodes(){generatedList.innerHTML='';generatedCodes.forEach(c=>{const el=document.createElement('div');el.style.display='flex';el.style.justifyContent='space-between';el.style.alignItems='center';el.style.padding='6px 8px';el.innerHTML=`<div style="font-weight:700">${c}</div><button class="copy-btn btn-outline" data-code="${c}">نسخ</button>`;generatedList.appendChild(el);});}
+generatedList.onclick=(e)=>{const b=e.target.closest('button');if(!b)return;const code=b.dataset.code;if(code)navigator.clipboard?.writeText(code).then(()=>showMessage('تم نسخ الكود: '+code));};
+document.getElementById('loginBtn').onclick=()=>{const id=document.getElementById('userId').value.trim();const pass=document.getElementById('password').value.trim();if(!id){showMessage('ادخل ID');return;}if(!pass){showMessage('ادخل كلمة المرور');return;}if(activationCode&&pass===activationCode){showGame();return;}if(pass==='demo'){showGame();return;}showMessage('كلمة المرور أو الـ ID غير صحيح');};
+function showGame(){document.getElementById('loginForm').style.display='none';document.getElementById('gameScreen').style.display='flex';startTimer();document.getElementById('bigNum').classList.add('color-animate');}
+let totalSeconds=59*60+54,timerInt=null;function startTimer(){updT();if(timerInt)clearInterval(timerInt);timerInt=setInterval(()=>{totalSeconds--;if(totalSeconds<0)totalSeconds=59*60+54;updT();},1000);}
+function updT(){const h=String(Math.floor(totalSeconds/3600)).padStart(2,'0');const m=String(Math.floor(totalSeconds%3600/60)).padStart(2,'0');const s=String(totalSeconds%60).padStart(2,'0');document.getElementById('countdown').textContent=`${h} : ${m} : ${s}`;}
+document.getElementById('playBtn').onclick=()=>showMessage('هناك ضغط في سيرفر الاسكربت، رجاء التسجيل لاحقًا أو لشحن حسابك !!');
+document.getElementById('helpBtn').onclick=()=>showMessage('يرجى التسجيل في منصة XpariBet بالبروموكود GX11 لربط حسابك بالاسكربت !!');
+modalBack.onclick=(e)=>{if(e.target===modalBack)modalBack.style.display='none';};
+</script>
+</body>
+  </html>
